@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="근무 패턴 선택"
+        android:textSize="20sp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/pattern_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/add_shift_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="선택된 패턴"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_marginTop="16dp"/>
+
+    <LinearLayout
+        android:id="@+id/selected_pattern_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/save_pattern_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="패턴 저장"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>

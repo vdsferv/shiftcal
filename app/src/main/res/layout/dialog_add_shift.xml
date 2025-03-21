@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="새 근무 추가"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/shift_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="근무 이름 (예: 주간)"
+        android:layout_marginTop="8dp" />
+
+    <RadioGroup
+        android:id="@+id/color_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp">
+
+        <RadioButton
+            android:id="@+id/color_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="파란색"
+            android:buttonTint="#0000FF" />
+
+        <RadioButton
+            android:id="@+id/color_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="빨간색"
+            android:buttonTint="#FF0000" />
+
+        <RadioButton
+            android:id="@+id/color_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="초록색"
+            android:buttonTint="#00FF00" />
+
+        <RadioButton
+            android:id="@+id/color_purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="보라색"
+            android:buttonTint="#800080" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/color_preview"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="선택된 색상"
+        android:background="#000000" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/confirm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
+        android:text="확인" />
+</LinearLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:orientation="vertical"-->
+<!--    android:padding="16dp">-->
+
+<!--    <EditText-->
+<!--        android:id="@+id/shift_name_input"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="근무 이름 (예: 비번)"/>-->
+
+<!--    <RadioGroup-->
+<!--        android:id="@+id/color_group"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:layout_marginTop="8dp">-->
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/color_blue"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="파랑"-->
+<!--            android:checked="true"/>-->
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/color_red"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="빨강"/>-->
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/color_green"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="초록"/>-->
+
+<!--        <RadioButton-->
+<!--            android:id="@+id/color_purple"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="보라"/>-->
+
+<!--    </RadioGroup>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/confirm_button"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="확인"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_marginTop="16dp"/>-->
+
+<!--</LinearLayout>-->

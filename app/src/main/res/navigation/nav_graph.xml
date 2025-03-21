@@ -1,0 +1,25 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/calendarFragment">
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.shiftcal.CalendarFragment"
+        android:label="캘린더" />
+
+    <fragment
+        android:id="@+id/patternEditFragment"
+        android:name="com.example.shiftcal.PatternEditFragment"
+        android:label="패턴 편집" />
+
+    <fragment
+        android:id="@+id/alarmSettingsFragment"
+        android:name="com.example.shiftcal.AlarmSettingsFragment"
+        android:label="알람 설정" />
+
+    <fragment
+        android:id="@+id/otherTeamsFragment"
+        android:name="com.example.shiftcal.OtherTeamsFragment"
+        android:label="다른 조 근무" />
+</navigation>

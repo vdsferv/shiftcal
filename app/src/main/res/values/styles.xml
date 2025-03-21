@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+<!--    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here &ndash;&gt;-->
+<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+<!--        <item name="colorAccent">@color/colorAccent</item>-->
+<!--    </style>-->
+
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+<!--        <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>-->
+<!--    </style>-->
+
+
+
+        <!-- AppTheme 정의 -->
+        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+        </style>
+
+        <!-- BottomNavigationView 테마 -->
+        <style name="BottomNavigationTheme" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+            <item name="itemIconTint">@color/bottom_nav_color</item>
+            <item name="itemTextColor">@color/bottom_nav_color</item>
+        </style>
+
+
+
+
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
+<!--        &lt;!&ndash; NoActionBar를 사용 중이라면 주석 처리 &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="windowActionBar">false</item> &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="windowNoTitle">true</item> &ndash;&gt;-->
+<!--    </style>-->
+
+</resources>

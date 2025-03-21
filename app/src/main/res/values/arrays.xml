@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="color_names">
+        <item>보라색</item>
+        <item>청록색</item>
+        <item>연보라색</item>
+        <item>파란색</item>
+        <item>빨간색</item>
+        <item>초록색</item>
+        <item>노란색</item>
+        <item>주황색</item>
+        <item>자주색</item>
+        <item>청록색</item>
+        <item>연두색</item>
+        <item>핑크색</item>
+        <item>보라색</item>
+        <item>진보라색</item>
+        <item>남색</item>
+        <item>하늘색</item>
+        <item>청록색</item>
+        <item>라임색</item>
+        <item>주황색</item>
+        <item>갈색</item>
+    </string-array>
+
+    <integer-array name="color_values">
+        <item>@color/shift_color_1</item>
+        <item>@color/shift_color_2</item>
+        <item>@color/shift_color_3</item>
+        <item>@color/shift_color_4</item>
+        <item>@color/shift_color_5</item>
+        <item>@color/shift_color_6</item>
+        <item>@color/shift_color_7</item>
+        <item>@color/shift_color_8</item>
+        <item>@color/shift_color_9</item>
+        <item>@color/shift_color_10</item>
+        <item>@color/shift_color_11</item>
+        <item>@color/shift_color_12</item>
+        <item>@color/shift_color_13</item>
+        <item>@color/shift_color_14</item>
+        <item>@color/shift_color_15</item>
+        <item>@color/shift_color_16</item>
+        <item>@color/shift_color_17</item>
+        <item>@color/shift_color_18</item>
+        <item>@color/shift_color_19</item>
+        <item>@color/shift_color_20</item>
+    </integer-array>
+</resources>

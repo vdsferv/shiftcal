@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/calendarFragment"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:title="캘린더" />
+    <item
+        android:id="@+id/patternEditFragment"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="패턴 편집" />
+    <item
+        android:id="@+id/alarmSettingsFragment"
+        android:icon="@android:drawable/ic_menu_recent_history"
+        android:title="알람 설정" />
+    <item
+        android:id="@+id/otherTeamsFragment"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="다른 조 근무" />
+</menu>

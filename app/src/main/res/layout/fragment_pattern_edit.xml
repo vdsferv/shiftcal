@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- 근무 형태 입력 -->
+    <Button
+        android:id="@+id/add_shift_type_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="새로운 근무 형태 추가" />
+
+    <!-- 동적으로 생성된 근무 형태 버튼을 표시할 레이아웃 -->
+    <LinearLayout
+        android:id="@+id/shift_buttons_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center"/>
+
+    <!-- 조합된 패턴 표시 -->
+    <TextView
+        android:id="@+id/pattern_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="조합된 패턴: "
+        android:textSize="16sp" />
+
+    <!-- 패턴 저장 버튼 -->
+    <Button
+        android:id="@+id/save_pattern_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="패턴 저장" />
+
+    <!-- 패턴 초기화 버튼 -->
+    <Button
+        android:id="@+id/clear_pattern_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:text="패턴 초기화" />
+</LinearLayout>
