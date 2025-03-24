@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -71,7 +75,9 @@ public class PatternEditFragment extends Fragment {
                 saveWorkPattern();
                 sharedViewModel.notifyPatternUpdated();
                 Toast.makeText(getContext(), "패턴이 저장되었습니다: " + workPattern.toString(), Toast.LENGTH_SHORT).show();
-                requireActivity().getSupportFragmentManager().popBackStack();
+                // NavController를 사용하여 CalendarFragment로 이동
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_patternEditFragment_to_calendarFragment);
             }
         });
 
@@ -172,6 +178,7 @@ public class PatternEditFragment extends Fragment {
         String json = gson.toJson(workPattern);
         editor.putString(KEY_PATTERNS, json);
         editor.apply();
+        Log.d("PatternEditFragment", "WorkPattern saved: " + json);
     }
 
     private void displayShiftButtons() {

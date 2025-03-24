@@ -27,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
 
+        // 탭 재선택 시 백스택 초기화
+        bottomNavigationView.setOnItemReselectedListener(item -> {
+            Log.d("MainActivity", "Reselected tab: " + item.getItemId());
+            navController.popBackStack(item.getItemId(), true);
+            navController.navigate(item.getItemId());
+        });
+
         // 디버깅 로그 추가
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             Log.d("MainActivity", "Destination changed: " + destination.getLabel());

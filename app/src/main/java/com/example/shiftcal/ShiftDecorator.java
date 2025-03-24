@@ -10,9 +10,12 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.style.CharacterStyle;
 import android.text.TextPaint;
+import android.util.Log;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import java.time.LocalDate;
+import java.util.Map;
 
 public class ShiftDecorator implements DayViewDecorator {
     private final CalendarDay day;
@@ -27,14 +30,20 @@ public class ShiftDecorator implements DayViewDecorator {
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        return this.day.equals(day);
+        boolean shouldDecorate = this.day.equals(day);
+        Log.d("ShiftDecorator", "shouldDecorate for " + day + ": " + shouldDecorate);
+        return shouldDecorate;
     }
 
     @Override
     public void decorate(DayViewFacade view) {
-        // 기본 날짜 숫자를 숨김
+        if (shift == null) {
+            Log.e("ShiftDecorator", "Shift is null for " + day);
+            return;
+        }
+
+        Log.d("ShiftDecorator", "decorate called for " + day + " with shift: " + shift);
         view.addSpan(new HideDefaultNumberSpan());
-        // CircleDrawable로 원, 날짜 숫자, shift 텍스트를 모두 관리
         CircleDrawable circleDrawable = new CircleDrawable(day.getDay(), color, shift);
         view.setBackgroundDrawable(circleDrawable);
     }
@@ -48,7 +57,7 @@ public class ShiftDecorator implements DayViewDecorator {
     }
 
     // CircleDrawable 클래스 정의
-    private class CircleDrawable extends Drawable {
+    public class CircleDrawable extends Drawable {
         private final int dayNumber;
         private final int color;
         private final String shiftText;
@@ -66,7 +75,7 @@ public class ShiftDecorator implements DayViewDecorator {
             this.paint.setColor(color);
             this.textPaint = new Paint();
             this.textPaint.setColor(Color.WHITE);
-            this.textPaint.setTextSize(28f); // 텍스트 크기를 28f로 키움
+            this.textPaint.setTextSize(28f);
             this.textPaint.setAntiAlias(true);
             this.textPaint.setTextAlign(Paint.Align.CENTER);
             this.dayPaint = new Paint();
@@ -80,23 +89,19 @@ public class ShiftDecorator implements DayViewDecorator {
             Rect bounds = getBounds();
             if (bounds.isEmpty()) return;
 
-            // Canvas의 클리핑 영역에서 top과 left를 얻음
             Rect clipBounds = canvas.getClipBounds();
             int left = clipBounds.left;
             int top = clipBounds.top;
 
             float centerX = bounds.exactCenterX();
             float centerY = bounds.exactCenterY() + 10f;
-            float radius = Math.min(bounds.width(), bounds.height()) / 2f * 0.6f; // 원 크기를 0.6f로 줄임
+            float radius = Math.min(bounds.width(), bounds.height()) / 2f * 0.6f;
 
-            // 원 그리기
             canvas.drawCircle(centerX, centerY, radius, paint);
 
-            // 날짜 숫자 그리기 (왼쪽 위)
             float dayTextY = top + 24f;
             canvas.drawText(String.valueOf(dayNumber), left + 5f, dayTextY, dayPaint);
 
-            // shift 텍스트 그리기 (원 안)
             if (!shiftText.trim().isEmpty()) {
                 float textY = centerY - (textPaint.descent() + textPaint.ascent()) / 2;
                 canvas.drawText(shiftText, centerX, textY, textPaint);

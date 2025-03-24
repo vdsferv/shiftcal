@@ -11,7 +11,17 @@
     <fragment
         android:id="@+id/patternEditFragment"
         android:name="com.example.shiftcal.PatternEditFragment"
-        android:label="패턴 편집" />
+        android:label="패턴 편집">
+        <action
+            android:id="@+id/action_patternEditFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:popUpTo="@id/calendarFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/alarmSettingsFragment"
