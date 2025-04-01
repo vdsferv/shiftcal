@@ -11,44 +11,77 @@ import android.graphics.drawable.Drawable;
 import android.text.style.CharacterStyle;
 import android.text.TextPaint;
 import android.util.Log;
+import android.util.LruCache;
+
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
+
 import java.time.LocalDate;
-import java.util.Map;
+import java.time.DateTimeException;
 
 public class ShiftDecorator implements DayViewDecorator {
-    private final CalendarDay day;
-    private final String shift;
+    private static final String TAG = "ShiftDecorator";
+    private final LocalDate date;
+    private final String shiftType;
     private final int color;
+    private final Paint circlePaint;
+    private final Paint textPaint;
+    private final Paint dayPaint;
 
-    public ShiftDecorator(CalendarDay day, String shift, int color) {
-        this.day = day;
-        this.shift = shift;
+    public ShiftDecorator(LocalDate date, String shiftType, int color) {
+        this.date = date;
+        this.shiftType = shiftType;
         this.color = color;
+
+        this.circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.circlePaint.setStyle(Paint.Style.FILL);
+        this.circlePaint.setColor(color);
+
+        this.textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.textPaint.setColor(Color.WHITE);
+        this.textPaint.setTextSize(28f);
+        this.textPaint.setTextAlign(Paint.Align.CENTER);
+
+        this.dayPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.dayPaint.setColor(Color.BLACK);
+        this.dayPaint.setTextSize(28f);
+        this.dayPaint.setTextAlign(Paint.Align.LEFT);
+
+        Log.d(TAG, String.format("Created decorator for date: %s, shift: %s, color: #%06X", 
+            date, shiftType, color));
     }
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {
-        boolean shouldDecorate = this.day.equals(day);
-        Log.d("ShiftDecorator", "shouldDecorate for " + day + ": " + shouldDecorate);
-        return shouldDecorate;
+        try {
+            boolean shouldDecorate = day.getYear() == date.getYear() &&
+                    day.getMonth() == date.getMonthValue() - 1 &&
+                    day.getDay() == date.getDayOfMonth();
+            
+            Log.d(TAG, String.format("shouldDecorate called for %d-%d-%d: %b (target: %s)",
+                    day.getYear(), day.getMonth() + 1, day.getDay(),
+                    shouldDecorate, date));
+            
+            if (shouldDecorate) {
+                Log.d(TAG, String.format("Decorator will be applied for date: %s", date));
+            }
+            
+            return shouldDecorate;
+        } catch (DateTimeException e) {
+            Log.e(TAG, "Invalid date: " + day.getYear() + "-" + (day.getMonth() + 1) + "-" + day.getDay() + ", " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
     public void decorate(DayViewFacade view) {
-        if (shift == null) {
-            Log.e("ShiftDecorator", "Shift is null for " + day);
-            return;
-        }
-
-        Log.d("ShiftDecorator", "decorate called for " + day + " with shift: " + shift);
+        Log.d(TAG, String.format("decorate called for date: %s, shift: %s", date, shiftType));
         view.addSpan(new HideDefaultNumberSpan());
-        CircleDrawable circleDrawable = new CircleDrawable(day.getDay(), color, shift);
-        view.setBackgroundDrawable(circleDrawable);
+        view.setBackgroundDrawable(new CircleDrawable(date.getDayOfMonth(), color, shiftType));
+        Log.d(TAG, String.format("Decoration applied for date: %s", date));
     }
 
-    // 기본 숫자를 숨기는 Span
     private static class HideDefaultNumberSpan extends CharacterStyle {
         @Override
         public void updateDrawState(TextPaint ds) {
@@ -56,32 +89,15 @@ public class ShiftDecorator implements DayViewDecorator {
         }
     }
 
-    // CircleDrawable 클래스 정의
-    public class CircleDrawable extends Drawable {
+    private class CircleDrawable extends android.graphics.drawable.Drawable {
         private final int dayNumber;
         private final int color;
         private final String shiftText;
-        private final Paint paint;
-        private final Paint textPaint;
-        private final Paint dayPaint;
 
         public CircleDrawable(int dayNumber, int color, String shiftText) {
             this.dayNumber = dayNumber;
             this.color = color;
             this.shiftText = shiftText;
-            this.paint = new Paint();
-            this.paint.setAntiAlias(true);
-            this.paint.setStyle(Paint.Style.FILL);
-            this.paint.setColor(color);
-            this.textPaint = new Paint();
-            this.textPaint.setColor(Color.WHITE);
-            this.textPaint.setTextSize(28f);
-            this.textPaint.setAntiAlias(true);
-            this.textPaint.setTextAlign(Paint.Align.CENTER);
-            this.dayPaint = new Paint();
-            this.dayPaint.setColor(Color.BLACK);
-            this.dayPaint.setTextSize(28f);
-            this.dayPaint.setTextAlign(Paint.Align.LEFT);
         }
 
         @Override
@@ -89,36 +105,34 @@ public class ShiftDecorator implements DayViewDecorator {
             Rect bounds = getBounds();
             if (bounds.isEmpty()) return;
 
-            Rect clipBounds = canvas.getClipBounds();
-            int left = clipBounds.left;
-            int top = clipBounds.top;
-
             float centerX = bounds.exactCenterX();
             float centerY = bounds.exactCenterY() + 10f;
-            float radius = Math.min(bounds.width(), bounds.height()) / 2f * 0.6f;
+            float radius = Math.min(bounds.width(), bounds.height()) * 0.6f / 2f;
 
-            canvas.drawCircle(centerX, centerY, radius, paint);
+            // 배경 원
+            canvas.drawCircle(centerX, centerY, radius, circlePaint);
 
-            float dayTextY = top + 24f;
-            canvas.drawText(String.valueOf(dayNumber), left + 5f, dayTextY, dayPaint);
+            // 날짜 텍스트
+            float dayTextX = bounds.left + 5f;
+            float dayTextY = bounds.top + 24f;
+            canvas.drawText(String.valueOf(dayNumber), dayTextX, dayTextY, dayPaint);
 
-            if (!shiftText.trim().isEmpty()) {
-                float textY = centerY - (textPaint.descent() + textPaint.ascent()) / 2;
-                canvas.drawText(shiftText, centerX, textY, textPaint);
-            }
+            // 시프트 텍스트
+            float textY = centerY - (textPaint.descent() + textPaint.ascent()) / 2;
+            canvas.drawText(shiftText, centerX, textY, textPaint);
         }
 
         @Override
         public void setAlpha(int alpha) {
-            paint.setAlpha(alpha);
+            circlePaint.setAlpha(alpha);
             textPaint.setAlpha(alpha);
             dayPaint.setAlpha(alpha);
             invalidateSelf();
         }
 
         @Override
-        public void setColorFilter(ColorFilter colorFilter) {
-            paint.setColorFilter(colorFilter);
+        public void setColorFilter(android.graphics.ColorFilter colorFilter) {
+            circlePaint.setColorFilter(colorFilter);
             textPaint.setColorFilter(colorFilter);
             dayPaint.setColorFilter(colorFilter);
             invalidateSelf();
@@ -126,7 +140,7 @@ public class ShiftDecorator implements DayViewDecorator {
 
         @Override
         public int getOpacity() {
-            return PixelFormat.OPAQUE;
+            return android.graphics.PixelFormat.OPAQUE;
         }
 
         @Override
